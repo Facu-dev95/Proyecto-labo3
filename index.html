@@ -8,10 +8,30 @@
 </head>
 <body>
     <header>
-        <h1>Cuestionario de bandas</h1>
-        <p>Pon a prueba tus conocimientos sobre tus bandas favoritas</p>
+        <h1>Cuestionario de peliculas</h1>
+        <p>Pon a prueba tus conocimientos sobre tus peliculas favoritas</p>
     </header>
+    <div id="busqueda">
+        <form action="#">
+            <fieldset>
+                <legend>Elija una opcion para comenzar</legend>
+
+                <label for="buscar">Buscar: </label>
+                <input type="text" name="buscar" id="buscar" placeholder="Ingrese su pelicula">
+                <button id="buscar">buscar</button>
+
+                <button id="comenzar">Comenzar</button>
+            </fieldset>
+        </form>
+    </div>
+    <div id="tiempo"></div>
+    <main>
+        <div id="recomendados">
+        </div>
+    </main>
+    <footer>Desarrollado por Facundo Benitez &copy</footer>
 
     <script src="./js/main.js"></script>
+    
 </body>
 </html>
