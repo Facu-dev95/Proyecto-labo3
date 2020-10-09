@@ -6,9 +6,7 @@ const max = 1999999;
 const min = 1000000;
 
 
-for(i=0; i<10; i++){
-
-    var cont2;
+for(i=0; i<2; i++){
 
     num = parseInt(Math.random() * (max - min) + min);
     console.log(num);
@@ -19,18 +17,13 @@ for(i=0; i<10; i++){
     .then(respuesta => respuesta.json())
     .then(resultado => {
 
-        if(resultado.Type == "movie"){
+        if(resultado.Type == "movie" && resultado.Poster !== "N/A"){
             data.push(resultado);
-            cont++;
-            return cont;
         }
-        recogerDatos(data)
+        
     })
+    .catch(error => console.log(error))
 
+    console.log(data);
 }
 
-
-function recogerDatos(datos){
-    data2 = datos;
-    return data2;
-}
