@@ -39,9 +39,14 @@ let titulo;
 let respuestas = document.querySelector("#respuestas");
 btnBuscar.addEventListener("click", () => obtenerDatos());
 
+
+function limpiarMain() {
+    respuestas.innerHTML = ""; //Limpio pantalla de imagenes
+}
+
 function obtenerDatos(){
     let page = 0;
-    respuestas.innerHTML = ""; //Limpio pantalla de imagenes
+    limpiarMain();
     titulo = document.querySelector("#buscar").value;
 
     if(titulo != ""){
@@ -71,11 +76,28 @@ function mostrarDatos(resultado){
         }
 
     }
-    console.log(resultado.Search);
+
+    obtenerIdImagen();
 }
 
 
+function obtenerIdImagen(){
+    let imgs = document.querySelectorAll("img");
+
+    for(img of imgs){
+        img.addEventListener("click", function(e){
+            obtenerInfoPeli(e.target.id);
+        });
+    }
+}
+
+function obtenerInfoPeli(id){
     
+    let url = `http://www.omdbapi.com/?i=${id}&apikey=cb4fb574`;
 
-
+    fetch(url)
+    .then(respuesta => respuesta.json())
+    .then(resultado => console.log(resultado))
+    .catch(error => console.log(error))
+}
 
