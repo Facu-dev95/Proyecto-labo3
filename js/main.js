@@ -39,6 +39,17 @@ let titulo;
 let respuestas = document.querySelector("#respuestas");
 btnBuscar.addEventListener("click", () => obtenerDatos());
 
+let btnComenzar = document.querySelector("#comenzar");
+
+let infoPeli;
+
+btnComenzar.addEventListener("click", ()=>{
+    limpiarMain();
+    tiempo();
+    btnComenzar.disabled = true;
+    generarPreguntas(infoPeli);
+})
+
 
 function limpiarMain() {
     respuestas.innerHTML = ""; //Limpio pantalla de imagenes
@@ -87,6 +98,9 @@ function obtenerIdImagen(){
     for(img of imgs){
         img.addEventListener("click", function(e){
             obtenerInfoPeli(e.target.id);
+            /*Remarcar la pelicula seleccionada*/
+            remarcarPeliSelec(e.target.id); 
+            
         });
     }
 }
@@ -97,7 +111,63 @@ function obtenerInfoPeli(id){
 
     fetch(url)
     .then(respuesta => respuesta.json())
-    .then(resultado => console.log(resultado))
+    .then(resultado => {
+
+        infoPeli = resultado;
+        /* Generar preguntas */ 
+    })
     .catch(error => console.log(error))
+}
+
+function tiempo(){
+    let seg = 0; 
+    let min = 2; 
+
+    let temp = setInterval(() => {
+        
+        if(seg == 0){
+            min--;
+            seg = 60;
+        }
+
+        seg--;
+
+        if(min == 0 && seg == 0){
+            clearInterval(temp);
+            console.log("Se terminó el tiempo!!");
+        }
+        mostrarTiempo(min , seg);
+    }, 1000);
+    
+}
+
+function mostrarTiempo(min , seg){
+    let temp = document.querySelector("#tiempo");
+
+    temp.innerHTML = `<h3>${min}:${seg}</h3>`;
+}
+
+function remarcarPeliSelec(id){
+    let img = document.querySelector(`#${id}`);
+    let btnComenzar = document.querySelector("#comenzar");
+
+    img.className ='seleccionado';
+    btnComenzar.style = "display: inline";
+}
+
+function generarPreguntas(info){
+    let actores = info.Actors;
+    let año = info.Year;
+    let publicacion = info.Released;
+    let director = info.Director;
+    let duracion = info.Runtime;
+    console.log(`año : ${año}\npublicacion : ${publicacion}\ndirector : ${director}\nduracion : ${duracion}\nactores : ${actores}\n`);
+
+    
+    mostrarPreguntas();
+}
+
+function mostrarPreguntas(){
+    console.log("MOSTRAR PREGUNTAS!!");
 }
 
