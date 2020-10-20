@@ -1,52 +1,15 @@
-/*
- 
-    ESTO ES PARA PELICULAS ALEATORIAS 
-
-
-let num;
-var data = [];
-var data2;
-var cont = 0;
-const max = 1999999;
-const min = 1000000;
-
-
-for(i=0; i<2; i++){
-
-    num = parseInt(Math.random() * (max - min) + min);
-    console.log(num);
-
-    let url = `http://www.omdbapi.com/?i=tt${num}&apikey=cb4fb574`;
-
-    fetch(url)
-    .then(respuesta => respuesta.json())
-    .then(resultado => {
-
-        if(resultado.Type == "movie" && resultado.Poster !== "N/A"){
-            data.push(resultado);
-        }
-        
-    })
-    .catch(error => console.log(error))
-
-    console.log(data);
-}
-
-*/
-
 let btnBuscar = document.querySelector("#btnBuscar");
 let titulo;
 let respuestas = document.querySelector("#respuestas");
 btnBuscar.addEventListener("click", () => obtenerDatos());
-
 let btnComenzar = document.querySelector("#comenzar");
-
 let infoPeli;
+let pregunta;
 
 btnComenzar.addEventListener("click", ()=>{
     limpiarMain();
     tiempo();
-    btnComenzar.disabled = true;
+    inhabilitarInputBtn();
     generarPreguntas(infoPeli);
 })
 
@@ -85,23 +48,31 @@ function mostrarDatos(resultado){
         if(resultado.Search[i].Poster !== "N/A"){
             respuestas.innerHTML += `<img src="${resultado.Search[i].Poster}" alt="Poster de ${resultado.Search[i].Title}" id="${resultado.Search[i].imdbID}">`;
         }
-
     }
-
     obtenerIdImagen();
 }
 
 
 function obtenerIdImagen(){
+    
     let imgs = document.querySelectorAll("img");
 
     for(img of imgs){
+        
         img.addEventListener("click", function(e){
             obtenerInfoPeli(e.target.id);
+            limpiarImgSelec();
             /*Remarcar la pelicula seleccionada*/
             remarcarPeliSelec(e.target.id); 
             
         });
+    }
+}
+
+function limpiarImgSelec(){
+    let imgs = document.querySelectorAll("img");
+    for(img of imgs){
+        img.className = " ";
     }
 }
 
@@ -149,10 +120,14 @@ function mostrarTiempo(min , seg){
 
 function remarcarPeliSelec(id){
     let img = document.querySelector(`#${id}`);
-    let btnComenzar = document.querySelector("#comenzar");
 
     img.className ='seleccionado';
-    btnComenzar.style = "display: inline";
+}
+function inhabilitarInputBtn(){
+
+    btnComenzar.disabled = true;
+    btnBuscar.disabled = true;
+    document.querySelector("#buscar").disabled = true;
 }
 
 function generarPreguntas(info){
@@ -161,13 +136,44 @@ function generarPreguntas(info){
     let publicacion = info.Released;
     let director = info.Director;
     let duracion = info.Runtime;
+
+    let p_uno = generarPreguntaAño(año);
+    
     console.log(`año : ${año}\npublicacion : ${publicacion}\ndirector : ${director}\nduracion : ${duracion}\nactores : ${actores}\n`);
 
     
-    mostrarPreguntas();
+    mostrarPreguntas(p_uno);
 }
 
-function mostrarPreguntas(){
-    console.log("MOSTRAR PREGUNTAS!!");
+function generarPreguntaAño(año){
+    
+    let preguntas = [];
+
+    for(let i=0; i<4 ; i++){
+        let num = parseInt(Math.random() * (10 - 1) + 1) + parseInt(año);
+
+        if(i == 2){
+            pregunta = `<input type='radio' id='myradio_${i}' name='radiobutton' value='${año}'/><label for="myradio_${i}">${año}</label>`;    
+        }else{
+            pregunta = `<input type='radio' id='myradio_${i}' name='radiobutton' value='${num}' /><label for="myradio_${i}">${num}</label>`;
+        }
+        preguntas.push(pregunta);
+    }
+    preguntas.sort( ()=>{return Math.random() - 0.5} );
+
+    pregunta =  `
+        <div id="pregunta_uno">
+            <p>¿En que año se estrenó?</p>
+            ${preguntas[0]}
+            ${preguntas[1]}
+            ${preguntas[2]}
+            ${preguntas[3]}
+        </div>
+    `;
+    return pregunta;
+}
+
+function mostrarPreguntas(p_uno){
+    respuestas.innerHTML = p_uno;
 }
 
