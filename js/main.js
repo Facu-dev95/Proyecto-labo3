@@ -138,11 +138,15 @@ function generarPreguntas(info){
     let duracion = info.Runtime;
 
     let p_uno = generarPreguntaAño(año);
+    let p_dos = generarPreguntaActores(actores);
+    let p_tres = generarPreguntaDirector(director);
+    let p_cuatro = generarPreguntaDuracion(duracion);
+    let p_cinco = generarPreguntaPublicacion(publicacion);
     
     console.log(`año : ${año}\npublicacion : ${publicacion}\ndirector : ${director}\nduracion : ${duracion}\nactores : ${actores}\n`);
 
     
-    mostrarPreguntas(p_uno);
+    mostrarPreguntas(p_uno, p_dos, p_tres, p_cuatro, p_cinco);
 }
 
 function generarPreguntaAño(año){
@@ -173,7 +177,54 @@ function generarPreguntaAño(año){
     return pregunta;
 }
 
-function mostrarPreguntas(p_uno){
-    respuestas.innerHTML = p_uno;
+function generarPreguntaActores(actores){
+    pregunta =  `
+    <div id="pregunta_dos">
+        <p>¿Cómo se llaman los actores principales?</p>
+        <em>Responder con el sig formato: gatito1, gatito2</em>
+        <input type="text" id="respuesta_dos" placeholder="Ingresar nombres">
+    </div>
+    `;
+
+    return pregunta;
+}
+
+function generarPreguntaDirector(director){
+    pregunta =  `
+    <div id="pregunta_tres">
+        <p>¿Cómo se llama el director de la película?</p>
+        <input type="text" id="respuesta_tres" placeholder="Ingresar nombre">
+    </div>
+    `;
+
+    return pregunta;
+}
+
+function generarPreguntaDuracion(duracion){
+
+    pregunta =  `
+    <div id="pregunta_cuatro">
+        <p>¿Cúal es la duracion en minutos?</p>
+        <input type="number" id="respuesta_cuatro" placeholder="Ingresar duracion en minutos">
+    </div>
+    `;
+
+    return pregunta;
+}
+
+function generarPreguntaPublicacion(publicacion){
+    pregunta =  `
+    <div id="pregunta_cinco">
+        <p>¿Cúal es la fecha de publicación?</p>
+        <input type="date" id="respuesta_cinco" placeholder="Ingresar fecha de publicacion">
+    </div>
+    `;
+
+    return pregunta;
+}
+
+function mostrarPreguntas(p_uno, p_dos, p_tres, p_cuatro, p_cinco){
+    respuestas.innerHTML = p_uno + p_dos + p_tres + p_cuatro + p_cinco;
+
 }
 
