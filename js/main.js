@@ -2,14 +2,19 @@ let btnBuscar = document.querySelector("#btnBuscar");
 let respuestas = document.querySelector("#respuestas");
 let form_preguntas = document.querySelector("#preguntas");
 let btnComenzar = document.querySelector("#comenzar");
-let btnFinalizar = document.querySelector("#finalizar");
-let temp;
+let btnFinalizar = document.getElementById("finalizar");
 let infoPeli;
 let pregunta;
 let listado_preguntas = [];
+let user_año;
+let user_director;
+let user_actores;
+let user_fecha;
+let user_duracion;
 
 
 btnBuscar.addEventListener("click", () => obtenerDatos());
+
 
 
 btnComenzar.addEventListener("click", ()=>{
@@ -18,12 +23,9 @@ btnComenzar.addEventListener("click", ()=>{
     inhabilitarInputBtn();
     mostrarBtnFinalizar();
     generarPreguntas(infoPeli);
+
 })
 
-
-btnFinalizar.addEventListener("click", ()=>{
-    console.log("hola");
-})
 
 function limpiarMain() {
     respuestas.innerHTML = ""; //Limpio pantalla de imagenes
@@ -104,13 +106,8 @@ function tiempo(){
     let seg = 0; 
     let min = 2; 
 
-    temp = setInterval(() => {
+    let temp = setInterval(() => {
 
-        let boleano =validarIngresos();
-        if(boleano === true){
-            habilitarBtnFinalizar();
-        }
-        
         if(seg == 0){
             min--;
             seg = 60;
@@ -121,11 +118,22 @@ function tiempo(){
 
         if(min == 0 && seg == 0){
             clearInterval(temp);
-            console.log("Se terminó el tiempo!!");
+            console.log("Se terminó el tiempo!!")
+            recogerDatos();
+            limpiarPreguntas();
+            limpiarTiempo();
+            /* Limpiar form */
+        }else if(validarIngresos() == true){
+            habilitarBtnFinalizar();
+            document.getElementById("finalizar").addEventListener("click", ()=>recogerDatos(temp));
+
         }
+    
         mostrarTiempo(min , seg);
 
     }, 1000);
+
+
     
 }
 
@@ -249,11 +257,13 @@ function mostrarPreguntas(listado_preguntas){
     for(preg of listado_preguntas){
         form_preguntas.innerHTML += preg;
     }
+
 }
 
 function mostrarBtnFinalizar(){
     btnFinalizar.classList.remove("finalizar");
 }
+
 
 function habilitarBtnFinalizar(){
     document.querySelector("#finalizar").removeAttribute("disabled");
@@ -299,4 +309,153 @@ function validarIngresos(){
     return validacion;
 }
 
+function recogerDatos(temp){
+    clearInterval(temp); // parar el tiempo
 
+    let radios = document.querySelectorAll("#preguntas > div > input[type=radio]");
+    let directores = document.querySelectorAll("#preguntas > div > input#respuesta_tres");
+    let actores = document.querySelectorAll("#preguntas > div > input#respuesta_dos");
+    let dates = document.querySelectorAll("#preguntas > div > input[type=date]");
+    let numbers = document.querySelectorAll("#preguntas > div > input[type=number]");
+    
+
+    for(radio of radios){
+        if(radio.checked == true){
+            user_año = radio.value;
+        }
+    }
+
+    for(director of directores){
+        user_director = director.value
+    }
+
+    for(actor of actores){
+        user_actores = actor.value
+    }
+
+    for(date of dates){
+        user_fecha = date.value
+    }
+    for(number of numbers){
+        user_duracion = number.value
+    }
+
+    comprobarRespuestas(user_año, user_duracion, user_actores, user_fecha, user_director);
+
+    limpiarPreguntas();
+    limpiarTiempo();
+    ocultarBtnFinalizar();
+    deshabilitarBtnFinalizar();
+
+    mostrarResultados();
+
+}
+
+function limpiarPreguntas(){
+    let elementos = document.querySelectorAll("#finalizar ~ div")
+    for(elemento of elementos){
+        elemento.innerHTML = "";
+    }
+}
+
+function limpiarTiempo(){
+    let div_tiempo = document.querySelector("#tiempo");
+    div_tiempo.innerHTML = "";
+}
+
+function ocultarBtnFinalizar(){
+    document.getElementById("finalizar").classList.add("finalizar");
+}
+
+
+function deshabilitarBtnFinalizar(){
+    document.getElementById("finalizar").setAttribute("disabled","");
+
+}
+
+function comprobarRespuestas(año, duracion, actores, publicacion, director){
+
+    let pregunta_año = false;
+    let pregunta_publicacion = false;
+    let pregunta_director = false;
+    let pregunta_duracion = false;
+    let pregunta_actores = false;
+    let array_actores_user;
+    let array_actores_correcto;
+    let array_publicacion_user;
+    let array_publicacion_correcto;
+    let respuestas_comprobadas = [];
+
+
+    if(infoPeli.Year == año){
+        pregunta_año = true
+    }
+
+    if(infoPeli.Director == director){
+        pregunta_director = true;
+    }
+
+    if(infoPeli.Runtime == (duracion+" min")){
+        pregunta_duracion = true;
+    }
+
+    array_actores_user = actores.replace(/[,]/g,"").split(" ");
+    array_actores_correcto = infoPeli.Actors.replace(/[,]/g,"").split(" ");
+
+    for(AU of array_actores_user){
+        for(AC of array_actores_correcto){
+            if(AU == AC){
+                pregunta_actores = true;
+            }
+        }
+    }
+    /* convierto la fecha en string */
+    let fecha_user = JSON.stringify(new Date(publicacion));
+    /* le saco las comillas y lo divido en 2 elementos en forma de array */
+    array_publicacion_user = fecha_user.replace(/["|"]/g,"").split("T");
+
+    let fecha_correcta = JSON.stringify(new Date(infoPeli.Released));
+    array_publicacion_correcto = fecha_correcta.replace(/["|"]/g,"").split("T");
+
+    if(array_publicacion_user[0] == array_publicacion_correcto[0]){
+        pregunta_publicacion = true;
+    }
+
+    respuestas_comprobadas.push(pregunta_año, pregunta_director, pregunta_duracion, pregunta_publicacion, pregunta_actores);
+
+    let porcen = porcentejeAcierto(respuestas_comprobadas);
+    mostrarResultados(respuestas_comprobadas, porcen);
+
+}
+
+function porcentejeAcierto(respuestas_comprobadas){
+
+    let porcen, v=0;
+    for(respuesta of respuestas_comprobadas){
+        if(respuesta == true){
+            v++;
+        }
+    }
+
+    if(v == 0){
+        porcen = 0
+    }else if(v == 1){
+        porcen = 20
+    }else if(v == 2){
+        porcen = 40
+    }else if(v == 3){
+        porcen = 60
+    }else if(v == 4){
+        porcen = 80
+    }else if(v == 5){
+        porcen = 100
+    }
+
+    return porcen;
+}
+
+function mostrarResultados(resp, porcen){
+
+    
+
+}
