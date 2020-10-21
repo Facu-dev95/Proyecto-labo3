@@ -21,3 +21,7 @@ img{
 .seleccionado{
     border: 5px solid red;
 }
+.finalizar{
+    display: none;
+
+}

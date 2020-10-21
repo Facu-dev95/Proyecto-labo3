@@ -1,18 +1,29 @@
 let btnBuscar = document.querySelector("#btnBuscar");
-let titulo;
 let respuestas = document.querySelector("#respuestas");
-btnBuscar.addEventListener("click", () => obtenerDatos());
+let form_preguntas = document.querySelector("#preguntas");
 let btnComenzar = document.querySelector("#comenzar");
+let btnFinalizar = document.querySelector("#finalizar");
+let temp;
 let infoPeli;
 let pregunta;
+let listado_preguntas = [];
+
+
+btnBuscar.addEventListener("click", () => obtenerDatos());
+
 
 btnComenzar.addEventListener("click", ()=>{
     limpiarMain();
     tiempo();
     inhabilitarInputBtn();
+    mostrarBtnFinalizar();
     generarPreguntas(infoPeli);
 })
 
+
+btnFinalizar.addEventListener("click", ()=>{
+    console.log("hola");
+})
 
 function limpiarMain() {
     respuestas.innerHTML = ""; //Limpio pantalla de imagenes
@@ -21,7 +32,7 @@ function limpiarMain() {
 function obtenerDatos(){
     let page = 0;
     limpiarMain();
-    titulo = document.querySelector("#buscar").value;
+    let titulo = document.querySelector("#buscar").value;
 
     if(titulo != ""){
         while(page < 2){
@@ -41,7 +52,6 @@ function obtenerDatos(){
 }
 
 function mostrarDatos(resultado){
-
 
     for(let i=0 ; i<resultado.Search.length; i++){
 
@@ -85,7 +95,7 @@ function obtenerInfoPeli(id){
     .then(resultado => {
 
         infoPeli = resultado;
-        /* Generar preguntas */ 
+        /* Generar form_preguntas */ 
     })
     .catch(error => console.log(error))
 }
@@ -94,7 +104,12 @@ function tiempo(){
     let seg = 0; 
     let min = 2; 
 
-    let temp = setInterval(() => {
+    temp = setInterval(() => {
+
+        let boleano =validarIngresos();
+        if(boleano === true){
+            habilitarBtnFinalizar();
+        }
         
         if(seg == 0){
             min--;
@@ -103,19 +118,21 @@ function tiempo(){
 
         seg--;
 
+
         if(min == 0 && seg == 0){
             clearInterval(temp);
             console.log("Se terminó el tiempo!!");
         }
         mostrarTiempo(min , seg);
+
     }, 1000);
     
 }
 
 function mostrarTiempo(min , seg){
-    let temp = document.querySelector("#tiempo");
+    let tempo = document.querySelector("#tiempo");
 
-    temp.innerHTML = `<h3>${min}:${seg}</h3>`;
+    tempo.innerHTML = `<h3>${min}:${seg}</h3>`;
 }
 
 function remarcarPeliSelec(id){
@@ -127,7 +144,7 @@ function inhabilitarInputBtn(){
 
     btnComenzar.disabled = true;
     btnBuscar.disabled = true;
-    document.querySelector("#buscar").disabled = true;
+    document.querySelector("#buscar").disabled = true;//input text
 }
 
 function generarPreguntas(info){
@@ -137,21 +154,21 @@ function generarPreguntas(info){
     let director = info.Director;
     let duracion = info.Runtime;
 
-    let p_uno = generarPreguntaAño(año);
-    let p_dos = generarPreguntaActores(actores);
-    let p_tres = generarPreguntaDirector(director);
-    let p_cuatro = generarPreguntaDuracion(duracion);
-    let p_cinco = generarPreguntaPublicacion(publicacion);
+    listado_preguntas[0] = generarPreguntaAño(año);
+    listado_preguntas[1] = generarPreguntaActores(actores);
+    listado_preguntas[2] = generarPreguntaDirector(director);
+    listado_preguntas[3] = generarPreguntaDuracion(duracion);
+    listado_preguntas[4] = generarPreguntaPublicacion(publicacion);
     
     console.log(`año : ${año}\npublicacion : ${publicacion}\ndirector : ${director}\nduracion : ${duracion}\nactores : ${actores}\n`);
 
     
-    mostrarPreguntas(p_uno, p_dos, p_tres, p_cuatro, p_cinco);
+    mostrarPreguntas(listado_preguntas);
 }
 
 function generarPreguntaAño(año){
     
-    let preguntas = [];
+    let radiobutons = [];
 
     for(let i=0; i<4 ; i++){
         let num = parseInt(Math.random() * (10 - 1) + 1) + parseInt(año);
@@ -161,17 +178,18 @@ function generarPreguntaAño(año){
         }else{
             pregunta = `<input type='radio' id='myradio_${i}' name='radiobutton' value='${num}' /><label for="myradio_${i}">${num}</label>`;
         }
-        preguntas.push(pregunta);
+        radiobutons.push(pregunta);
     }
-    preguntas.sort( ()=>{return Math.random() - 0.5} );
+    /*desordenar elementos del array */
+    radiobutons.sort( ()=>{return Math.random() - 0.5} );
 
     pregunta =  `
         <div id="pregunta_uno">
             <p>¿En que año se estrenó?</p>
-            ${preguntas[0]}
-            ${preguntas[1]}
-            ${preguntas[2]}
-            ${preguntas[3]}
+            ${radiobutons[0]}
+            ${radiobutons[1]}
+            ${radiobutons[2]}
+            ${radiobutons[3]}
         </div>
     `;
     return pregunta;
@@ -205,7 +223,7 @@ function generarPreguntaDuracion(duracion){
     pregunta =  `
     <div id="pregunta_cuatro">
         <p>¿Cúal es la duracion en minutos?</p>
-        <input type="number" id="respuesta_cuatro" placeholder="Ingresar duracion en minutos">
+        <input type="number" id="respuesta_cuatro" placeholder="Ingresar duracion en minutos" value=0>
     </div>
     `;
 
@@ -216,15 +234,69 @@ function generarPreguntaPublicacion(publicacion){
     pregunta =  `
     <div id="pregunta_cinco">
         <p>¿Cúal es la fecha de publicación?</p>
-        <input type="date" id="respuesta_cinco" placeholder="Ingresar fecha de publicacion">
+        <input type="date" id="respuesta_cinco" placeholder="Ingresar fecha de publicacion" value="2017-06-01">
     </div>
     `;
 
     return pregunta;
 }
 
-function mostrarPreguntas(p_uno, p_dos, p_tres, p_cuatro, p_cinco){
-    respuestas.innerHTML = p_uno + p_dos + p_tres + p_cuatro + p_cinco;
+function mostrarPreguntas(listado_preguntas){
+
+    /*desordenar elementos del array */
+    listado_preguntas.sort( ()=>{return Math.random() - 0.5} );
+
+    for(preg of listado_preguntas){
+        form_preguntas.innerHTML += preg;
+    }
+}
+
+function mostrarBtnFinalizar(){
+    btnFinalizar.classList.remove("finalizar");
+}
+
+function habilitarBtnFinalizar(){
+    document.querySelector("#finalizar").removeAttribute("disabled");
 
 }
+
+function validarIngresos(){
+    let validacion = false
+    let cont = 0;
+    let radios = document.querySelectorAll("#preguntas > div > input[type=radio]");
+    let texts = document.querySelectorAll("#preguntas > div > input[type=text]");
+    let dates = document.querySelectorAll("#preguntas > div > input[type=date]");
+    let numbers = document.querySelectorAll("#preguntas > div > input[type=number]");
+
+    for(radio of radios){
+        if(radio.checked == true){
+            
+            cont++;
+        }
+    }
+
+    for(text of texts){
+        if(text.value != ""){
+            cont++;
+        }
+    }
+
+    for(number of numbers){
+        if(number.value != 0){
+            cont++;
+        }
+    }
+
+    for(date of dates){
+        if(date.value != "2017-06-01"){
+            cont++;
+        }
+    }
+
+    if(cont >= 5){
+        validacion = true;
+    }
+    return validacion;
+}
+
 
