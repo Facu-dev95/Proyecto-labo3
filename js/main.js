@@ -11,6 +11,8 @@ let user_director;
 let user_actores;
 let user_fecha;
 let user_duracion;
+let c = 0;
+
 
 
 btnBuscar.addEventListener("click", () => obtenerDatos());
@@ -312,42 +314,45 @@ function validarIngresos(){
 function recogerDatos(temp){
     clearInterval(temp); // parar el tiempo
 
-    let radios = document.querySelectorAll("#preguntas > div > input[type=radio]");
-    let directores = document.querySelectorAll("#preguntas > div > input#respuesta_tres");
-    let actores = document.querySelectorAll("#preguntas > div > input#respuesta_dos");
-    let dates = document.querySelectorAll("#preguntas > div > input[type=date]");
-    let numbers = document.querySelectorAll("#preguntas > div > input[type=number]");
+    if (c < 1){
+
+        let radios = document.querySelectorAll("#preguntas > div > input[type=radio]");
+        let directores = document.querySelectorAll("#preguntas > div > input#respuesta_tres");
+        let actores = document.querySelectorAll("#preguntas > div > input#respuesta_dos");
+        let dates = document.querySelectorAll("#preguntas > div > input[type=date]");
+        let numbers = document.querySelectorAll("#preguntas > div > input[type=number]");
+        
     
-
-    for(radio of radios){
-        if(radio.checked == true){
-            user_año = radio.value;
+        for(radio of radios){
+            if(radio.checked == true){
+                user_año = radio.value;
+            }
         }
+    
+        for(director of directores){
+            user_director = director.value
+        }
+    
+        for(actor of actores){
+            user_actores = actor.value
+        }
+    
+        for(date of dates){
+            user_fecha = date.value
+        }
+        for(number of numbers){
+            user_duracion = number.value
+        }
+    
+        comprobarRespuestas(user_año, user_duracion, user_actores, user_fecha, user_director);
+    
+        limpiarPreguntas();
+        limpiarTiempo();
+        ocultarBtnFinalizar();
+        deshabilitarBtnFinalizar();
+
     }
-
-    for(director of directores){
-        user_director = director.value
-    }
-
-    for(actor of actores){
-        user_actores = actor.value
-    }
-
-    for(date of dates){
-        user_fecha = date.value
-    }
-    for(number of numbers){
-        user_duracion = number.value
-    }
-
-    comprobarRespuestas(user_año, user_duracion, user_actores, user_fecha, user_director);
-
-    limpiarPreguntas();
-    limpiarTiempo();
-    ocultarBtnFinalizar();
-    deshabilitarBtnFinalizar();
-
-    mostrarResultados();
+    c++;
 
 }
 
@@ -456,6 +461,31 @@ function porcentejeAcierto(respuestas_comprobadas){
 
 function mostrarResultados(resp, porcen){
 
-    
+    console.log(porcen);
+
+    let mostrar = `
+    <p>${porcen}% de preguntas respondidas correctamente</p>
+    <div>
+        <p>¿En que año se estrenó?</p><em>${infoPeli.Year}</em>
+        <p>¿Cómo se llaman los actores principales?</p><em>${infoPeli.Actors}</em>
+        <p>¿Cómo se llama el director de la película?</p><em>${infoPeli.Director}</em>
+        <p>¿Cúal es la duracion en minutos?</p><em>${infoPeli.Runtime}</em>
+        <p>¿Cúal es la fecha de publicación?</p><em>${infoPeli.Released}</em>
+    </div>
+    `
+    let nuevo_intento = `<h2>Vuelve a intentarlo</h2>`;
+    let bien = `<h2>Bien!</h2>`;
+    let muyBien = `<h2>Muy Bien!!</h2>`;
+    let excelente = `<h2>Excelente!!</h2>`;
+
+    if(porcen > 80){
+        respuestas.innerHTML = excelente + mostrar;
+    } else if(porcen > 40){
+        respuestas.innerHTML = muyBien + mostrar;
+    }else if(porcen > 0){
+        respuestas.innerHTML = bien + mostrar;
+    }else{
+        respuestas.innerHTML = nuevo_intento + mostrar;
+    }
 
 }
