@@ -232,7 +232,7 @@ function generarPreguntaDuracion(duracion){
 
     pregunta =  `
     <div id="pregunta_cuatro">
-        <label for="respuesta_cuatro">¿Cúal es la duracion en minutos?</label>
+        <label for="respuesta_cuatro">¿Cúal es la duración en minutos?</label>
         <input type="number" id="respuesta_cuatro" placeholder="Ingresar duracion en minutos" value=0>
     </div>
     `;
@@ -461,22 +461,20 @@ function porcentejeAcierto(respuestas_comprobadas){
 
 function mostrarResultados(resp, porcen){
 
-    console.log(porcen);
-
     let mostrar = `
     <p>${porcen}% de preguntas respondidas correctamente</p>
-    <div>
+    <div id="preg">
         <p>¿En que año se estrenó?</p><em>${infoPeli.Year}</em>
-        <p>¿Cómo se llaman los actores principales?</p><em>${infoPeli.Actors}</em>
         <p>¿Cómo se llama el director de la película?</p><em>${infoPeli.Director}</em>
-        <p>¿Cúal es la duracion en minutos?</p><em>${infoPeli.Runtime}</em>
+        <p>¿Cúal es la duración en minutos?</p><em>${infoPeli.Runtime}</em>
         <p>¿Cúal es la fecha de publicación?</p><em>${infoPeli.Released}</em>
+        <p>¿Cómo se llaman los actores principales?</p><em>${infoPeli.Actors}</em>
     </div>
     `
-    let nuevo_intento = `<h2>Vuelve a intentarlo</h2>`;
-    let bien = `<h2>Bien!</h2>`;
-    let muyBien = `<h2>Muy Bien!!</h2>`;
-    let excelente = `<h2>Excelente!!</h2>`;
+    let nuevo_intento = `<h1>Resultados</h1><h2>Vuelve a intentarlo</h2>`;
+    let bien = `<h1>Resultados</h1><h2>Bien!</h2>`;
+    let muyBien = `<h1>Resultados</h1><h2>Muy Bien!!</h2>`;
+    let excelente = `<h1>Resultados</h1><h2>Excelente!!</h2>`;
 
     if(porcen > 80){
         respuestas.innerHTML = excelente + mostrar;
@@ -486,6 +484,16 @@ function mostrarResultados(resp, porcen){
         respuestas.innerHTML = bien + mostrar;
     }else{
         respuestas.innerHTML = nuevo_intento + mostrar;
+    }
+
+    let preg = document.querySelectorAll("#preg > p");
+    
+    for(let i =0; i<resp.length; i++){
+        if(resp[i] == true){
+            preg[i].innerHTML += `<div class="correcto"></div>`;
+        }else{
+            preg[i].innerHTML += `<div class="incorrecto"></div>`;
+        }
     }
 
 }
