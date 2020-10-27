@@ -1,3 +1,7 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 html {
     background-color: #ccc;
 }
@@ -7,12 +11,36 @@ body{
     margin: 0 auto;
     background-color: #ffffff;
 }
-
 h1{
-    margin: 0;
+    font-family: 'Anton', sans-serif;
 }
 
-img{
+p{
+    font-family: 'Oxygen', sans-serif;
+}
+
+header{
+    background-color: #f05454;
+    padding: 10px;
+}
+header h1{
+    font-size: 60px;
+    text-align: center;
+}
+header p{
+    text-align: center;
+}
+#image{
+    max-width: 50%;
+    display: inline-block;
+}
+
+#image img{
+    height: 200px;
+    width: 200px;
+}
+
+#respuestas img{
     width: 300px;
     height: 400px;
     margin: 5px;

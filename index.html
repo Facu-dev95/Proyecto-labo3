@@ -4,26 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Labo3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oxygen&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <header>
-        <h1>Cuestionario de peliculas</h1>
+        <h1>PeliTests</h1>
         <p>Pon a prueba tus conocimientos sobre tus peliculas favoritas</p>
     </header>
-    <div id="busqueda">
-        <form action="#" method="GET">
-            <fieldset>
+    <div id="buscar-prin">
+        <div id="image">
+            <img src="./img/claqueta.jpg" alt="Claqueta">
+        </div>
 
-                <label for="buscar">Buscar: </label>
-                <input type="text" name="buscar" id="buscar" placeholder="Ingrese su pelicula">
-                <button type="button" id="btnBuscar">buscar</button>
+        <div id="caja-busq">
+            <label for="buscar">Buscar: </label>
+            <input type="text" name="buscar" id="buscar" placeholder="Ingrese su pelicula">
+            <button type="button" id="btnBuscar">buscar</button>
 
-                <input type="button" value="Comenzar" id="comenzar" disabled>
+            <input type="button" value="Comenzar" id="comenzar" disabled>
 
-                <input type="button" value="Reiniciar" id="reiniciar" class="oculto">
-            </fieldset>
-        </form>
+            <input type="button" value="Reiniciar" id="reiniciar" class="oculto">
+        </div>
     </div>
     <div id="tiempo"></div>
     <main>
