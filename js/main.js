@@ -3,6 +3,7 @@ let respuestas = document.querySelector("#respuestas");
 let form_preguntas = document.querySelector("#preguntas");
 let btnComenzar = document.querySelector("#comenzar");
 let btnFinalizar = document.getElementById("finalizar");
+let btnReiniciar = document.querySelector("#reiniciar");
 let infoPeli;
 let pregunta;
 let listado_preguntas = [];
@@ -13,11 +14,7 @@ let user_fecha;
 let user_duracion;
 let c = 0;
 
-
-
 btnBuscar.addEventListener("click", () => obtenerDatos());
-
-
 
 btnComenzar.addEventListener("click", ()=>{
     limpiarMain();
@@ -135,8 +132,6 @@ function tiempo(){
 
     }, 1000);
 
-
-    
 }
 
 function mostrarTiempo(min , seg){
@@ -146,15 +141,25 @@ function mostrarTiempo(min , seg){
 }
 
 function remarcarPeliSelec(id){
-    let img = document.querySelector(`#${id}`);
 
+    let img = document.querySelector(`#${id}`);
     img.className ='seleccionado';
+
+    habilitarBtnComenzar();
 }
 function inhabilitarInputBtn(){
 
     btnComenzar.disabled = true;
     btnBuscar.disabled = true;
     document.querySelector("#buscar").disabled = true;//input text
+}
+
+function habilitarBtnComenzar(){
+    btnComenzar.disabled = false;
+}
+
+function desabilitarBtnComenzar(){
+    btnComenzar.disabled = true;
 }
 
 function generarPreguntas(info){
@@ -177,7 +182,6 @@ function generarPreguntas(info){
 }
 
 function generarPreguntaAño(año){
-    
     let radiobutons = [];
 
     for(let i=0; i<4 ; i++){
@@ -263,7 +267,7 @@ function mostrarPreguntas(listado_preguntas){
 }
 
 function mostrarBtnFinalizar(){
-    btnFinalizar.classList.remove("finalizar");
+    btnFinalizar.classList.remove("oculto");
 }
 
 
@@ -350,7 +354,7 @@ function recogerDatos(temp){
         limpiarTiempo();
         ocultarBtnFinalizar();
         deshabilitarBtnFinalizar();
-
+        habilitarMostrarBtnReiniciar();
     }
     c++;
 
@@ -369,7 +373,7 @@ function limpiarTiempo(){
 }
 
 function ocultarBtnFinalizar(){
-    document.getElementById("finalizar").classList.add("finalizar");
+    document.getElementById("finalizar").classList.add("oculto");
 }
 
 
@@ -497,3 +501,11 @@ function mostrarResultados(resp, porcen){
     }
 
 }
+
+function habilitarMostrarBtnReiniciar(){
+
+    btnReiniciar.classList.remove("oculto");
+    btnReiniciar.removeAttribute("disabled");
+}
+
+btnReiniciar.addEventListener('click', ()=> window.location.reload());

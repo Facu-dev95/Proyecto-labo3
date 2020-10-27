@@ -14,13 +14,14 @@
     <div id="busqueda">
         <form action="#" method="GET">
             <fieldset>
-                <legend>Elija una opcion para comenzar</legend>
 
                 <label for="buscar">Buscar: </label>
                 <input type="text" name="buscar" id="buscar" placeholder="Ingrese su pelicula">
                 <button type="button" id="btnBuscar">buscar</button>
 
-                <input type="button" value="Comenzar" id="comenzar">
+                <input type="button" value="Comenzar" id="comenzar" disabled>
+
+                <input type="button" value="Reiniciar" id="reiniciar" class="oculto">
             </fieldset>
         </form>
     </div>
@@ -30,7 +31,7 @@
 
         </section>
         <form id="preguntas" action="#" method="GET">
-            <input type="button" value="Finalizar" class="finalizar" id="finalizar" disabled>
+            <input type="button" value="Finalizar" class="oculto" id="finalizar" disabled>
 
         </form>
     </main>
