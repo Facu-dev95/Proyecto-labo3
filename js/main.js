@@ -7,11 +7,6 @@ let btnReiniciar = document.querySelector("#reiniciar");
 let infoPeli;
 let pregunta;
 let listado_preguntas = [];
-let user_año;
-let user_director;
-let user_actores;
-let user_fecha;
-let user_duracion;
 let c = 0;
 
 btnBuscar.addEventListener("click", () => obtenerDatos());
@@ -317,6 +312,11 @@ function validarIngresos(){
 
 function recogerDatos(temp){
     clearInterval(temp); // parar el tiempo
+    let user_año;
+    let user_director;
+    let user_actores;
+    let user_fecha;
+    let user_duracion;
 
     if (c < 1){
 
