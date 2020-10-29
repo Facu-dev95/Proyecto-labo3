@@ -194,7 +194,7 @@ function generarPreguntaAño(año){
 
     pregunta =  `
         <div id="pregunta_uno">
-            <label>¿En que año se estrenó?</label>
+            <label class="preg">¿En que año se estrenó?</label>
             ${radiobutons[0]}
             ${radiobutons[1]}
             ${radiobutons[2]}
@@ -207,8 +207,8 @@ function generarPreguntaAño(año){
 function generarPreguntaActores(actores){
     pregunta =  `
     <div id="pregunta_dos">
-        <label for="respuesta_dos">¿Cómo se llaman los actores principales?</label>
-        <em>Responder con el sig formato: Gatito1, Gatito2</em>
+        <label for="respuesta_dos" class="preg">¿Cómo se llaman los actores principales?<em> Responder con el sig formato: Gatito1, Gatito2</em></label>
+        
         <input type="text" id="respuesta_dos" placeholder="Ingresar nombres">
     </div>
     `;
@@ -219,7 +219,7 @@ function generarPreguntaActores(actores){
 function generarPreguntaDirector(director){
     pregunta =  `
     <div id="pregunta_tres">
-        <label for="respuesta_tres">¿Cómo se llama el director de la película?</label>
+        <label for="respuesta_tres" class="preg">¿Cómo se llama el director de la película?</label>
         <input type="text" id="respuesta_tres" placeholder="Ingresar nombre">
     </div>
     `;
@@ -231,7 +231,7 @@ function generarPreguntaDuracion(duracion){
 
     pregunta =  `
     <div id="pregunta_cuatro">
-        <label for="respuesta_cuatro">¿Cúal es la duración en minutos?</label>
+        <label for="respuesta_cuatro" class="preg">¿Cúal es la duración en minutos?</label>
         <input type="number" id="respuesta_cuatro" placeholder="Ingresar duracion en minutos" value=0>
     </div>
     `;
@@ -242,7 +242,7 @@ function generarPreguntaDuracion(duracion){
 function generarPreguntaPublicacion(publicacion){
     pregunta =  `
     <div id="pregunta_cinco">
-        <label for="respuesta_cinco">¿Cúal es la fecha de publicación?</label>
+        <label for="respuesta_cinco" class="preg">¿Cúal es la fecha de publicación?</label>
         <input type="date" id="respuesta_cinco" placeholder="Ingresar fecha de publicacion" value="2017-06-01">
     </div>
     `;

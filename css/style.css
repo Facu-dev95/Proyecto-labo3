@@ -10,7 +10,7 @@ html {
 
 body{
     margin: 0;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
 }
 
 #container{
@@ -18,6 +18,7 @@ body{
     margin: 0 auto;
     background-color: #ffffff;
 }
+
 h1{
     font-family: 'Anton', sans-serif;
 }
@@ -26,7 +27,7 @@ p, label, input{
     font-family: 'Oxygen', sans-serif;
 }
 
-input[type=button]:not(#finalizar){
+input[type=button]{
     outline: none;
     border: none;
     padding: 8px;
@@ -96,6 +97,44 @@ header p{
 
 .oculto{
     display: none;
+}
+
+#tiempo{
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#preguntas{
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #eeeeee;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+}
+
+#preguntas > div > input[type="text"]{
+    border: none;
+    width: 300px;
+    background-color: #eee;
+    border-bottom: 2px solid rgba(122, 79, 39, 0.719);
+}
+
+#preguntas > div > input[type="number"]{
+    border: none;
+    width: 300px;
+    background-color: #eee;
+    border-bottom: 2px solid rgba(122, 79, 39, 0.719);
+}
+
+
+.preg{
+    display: block;
+    margin-top: 40px;
+    margin-bottom: 12px;
 }
 
 .correcto{
