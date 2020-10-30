@@ -15,6 +15,7 @@ btnComenzar.addEventListener("click", ()=>{
     limpiarMain();
     tiempo();
     inhabilitarInputBtn();
+    mostrarForm();
     mostrarBtnFinalizar();
     generarPreguntas(infoPeli);
 
@@ -23,8 +24,9 @@ btnComenzar.addEventListener("click", ()=>{
 
 function limpiarMain() {
     respuestas.innerHTML = ""; //Limpio pantalla de imagenes
+    respuestas.classList.remove("respuestasResultados");
+    respuestas.classList.add("respuestasIMG");
 }
-
 function obtenerDatos(){
     let page = 0;
     limpiarMain();
@@ -48,6 +50,7 @@ function obtenerDatos(){
 }
 
 function mostrarDatos(resultado){
+
 
     for(let i=0 ; i<resultado.Search.length; i++){
 
@@ -147,10 +150,18 @@ function inhabilitarInputBtn(){
     btnComenzar.disabled = true;
     btnBuscar.disabled = true;
     document.querySelector("#buscar").disabled = true;//input text
+    btnComenzar.classList.remove("btnComenzarHabilitado");
+    btnComenzar.classList.add("btnComenzarDesabilitado");
+    btnBuscar.classList.remove("btnBuscarHabilitado");
+    btnBuscar.classList.add("btnBuscarDesabilitado");
+
 }
 
 function habilitarBtnComenzar(){
     btnComenzar.disabled = false;
+    btnComenzar.classList.remove("btnComenzarDesabilitado");
+    btnComenzar.classList.add("btnComenzarHabilitado");
+
 }
 
 function desabilitarBtnComenzar(){
@@ -262,13 +273,14 @@ function mostrarPreguntas(listado_preguntas){
 }
 
 function mostrarBtnFinalizar(){
-    btnFinalizar.classList.remove("oculto");
+    document.querySelector("#finalizar").classList.remove("oculto");
 }
 
 
 function habilitarBtnFinalizar(){
     document.querySelector("#finalizar").removeAttribute("disabled");
-
+    document.querySelector("#finalizar").classList.remove("btnFinalizarDesabilitado");
+    document.querySelector("#finalizar").classList.add("btnFinalizarHabilitado");
 }
 
 function validarIngresos(){
@@ -355,6 +367,7 @@ function recogerDatos(temp){
         ocultarBtnFinalizar();
         deshabilitarBtnFinalizar();
         habilitarMostrarBtnReiniciar();
+        ocultarForm();
     }
     c++;
 
@@ -376,9 +389,18 @@ function ocultarBtnFinalizar(){
     document.getElementById("finalizar").classList.add("oculto");
 }
 
+function mostrarForm(){
+    form_preguntas.classList.remove("oculto");
+}
+
+function ocultarForm(){
+    form_preguntas.classList.add("oculto");
+}
 
 function deshabilitarBtnFinalizar(){
     document.getElementById("finalizar").setAttribute("disabled","");
+    document.getElementById("finalizar").classList.remove("btnFinalizarHabilitado");
+    document.getElementById("finalizar").classList.add("btnFinalizarDesabilitado");
 
 }
 
@@ -465,8 +487,11 @@ function porcentejeAcierto(respuestas_comprobadas){
 
 function mostrarResultados(resp, porcen){
 
+    respuestas.classList.remove("respuestasIMG");
+    respuestas.classList.add("respuestasResultados");
+
     let mostrar = `
-    <p>${porcen}% de preguntas respondidas correctamente</p>
+    <h3>${porcen}% preguntas respondidas correctamente</h3>
     <div id="preg">
         <p>¿En que año se estrenó?</p><em>${infoPeli.Year}</em>
         <p>¿Cómo se llama el director de la película?</p><em>${infoPeli.Director}</em>
@@ -506,6 +531,22 @@ function habilitarMostrarBtnReiniciar(){
 
     btnReiniciar.classList.remove("oculto");
     btnReiniciar.removeAttribute("disabled");
+    btnReiniciar.classList.add("btnReiniciarHabilitado");
 }
 
-btnReiniciar.addEventListener('click', ()=> window.location.reload());
+btnReiniciar.addEventListener('click', limpiar);
+
+function limpiar(){
+
+    btnReiniciar.classList.add("oculto");
+    btnReiniciar.setAttribute("disabled","");
+    document.querySelector("#buscar").value = "";
+    limpiarMain();
+    limpiarTiempo();
+    btnBuscar.disabled = false;
+    btnBuscar.classList.remove("btnBuscarDesabilitado");
+    btnBuscar.classList.add("btnBuscarHabilitado");
+    document.querySelector("#buscar").disabled = false;
+    c=0;
+
+}

@@ -31,20 +31,66 @@ input[type=button]{
     outline: none;
     border: none;
     padding: 8px;
-    background-color: #f05454;
     font-size: 14px;
 }
 
-input[type=button]:hover:not(#comenzar){
-
-    background-color:rgba(155, 0, 0, 0.746);
-    color: white;
+.btnBuscarHabilitado{
+    background-color: #1992d3;
+    color: #eee
 }
+.btnBuscarHabilitado:hover{
+    background-color: #115980;
+    color: #eee
+}
+
+.btnBuscarDesabilitado{
+    background-color: #646769;
+    color: #eee
+}
+
+.btnComenzarHabilitado{
+    background-color:  #24a02e;
+    color: #eee
+}
+.btnComenzarHabilitado:hover{
+    background-color: #097912;
+    color: #eee
+}
+
+.btnComenzarDesabilitado{
+    background-color: #646769;
+    color: #eee
+}
+
+.btnFinalizarHabilitado{
+    background-color: #f05454;
+    color: #eee
+}
+.btnFinalizarHabilitado:hover{
+    background-color: #b62d2d;
+    color: #aaa
+}
+
+.btnFinalizarDesabilitado{
+    background-color: #646769;
+    color: #eee
+}
+
+.btnReiniciarHabilitado{
+    background-color: #6959f3;
+    color: #eee
+}
+.btnReiniciarHabilitado:hover{
+    background-color: #3e2af8;
+    color: #aaa
+}
+
 
 header{
     background-color: #f05454;
     padding: 10px;
 }
+
 header h1{
     font-size: 60px;
     text-align: center;
@@ -75,12 +121,46 @@ header p{
     width: 200px;
 }
 
-.respuestas{
+.respuestasIMG{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
+.respuestasResultados{
+    text-align: center;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #eeeeee;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+.respuestasResultados h1{
+    font-size: 80px;
+    text-decoration: underline;
 
+}
+
+.respuestasResultados h2{
+    font-size: 40px;
+    font-family: 'Oxygen', sans-serif;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.respuestasResultados h3{
+    font-size: 30px;
+    font-family: 'Oxygen', sans-serif;
+    margin-bottom: 80px;
+}
+
+.respuestasResultados p{
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.respuestasResultados em{
+    font-size: 20px;
+}
 
 #respuestas img{
     width: 300px;
@@ -121,6 +201,7 @@ header p{
     width: 300px;
     background-color: #eee;
     border-bottom: 2px solid rgba(122, 79, 39, 0.719);
+    outline: none;
 }
 
 #preguntas > div > input[type="number"]{
@@ -128,6 +209,7 @@ header p{
     width: 300px;
     background-color: #eee;
     border-bottom: 2px solid rgba(122, 79, 39, 0.719);
+    outline: none;
 }
 
 
@@ -138,6 +220,7 @@ header p{
 }
 
 .correcto{
+    display: inline-block;
     height: 10px;
     width: 10px;
     border: 1px solid green;
@@ -146,6 +229,7 @@ header p{
 }
 
 .incorrecto{
+    display: inline-block;
     height: 10px;
     width: 10px;
     border: 1px solid red;

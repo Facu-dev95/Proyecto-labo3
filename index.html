@@ -25,9 +25,9 @@
                     <p><em>*Se recomienda escribir el nombre de la pelicula completa en ingles*</em></p>
                     <label for="buscar">Buscar: </label>
                     <input type="text" name="buscar" id="buscar" placeholder="Ingrese su pelicula">
-                    <input type="button" id="btnBuscar" value="Buscar"></input>
+                    <input type="button" id="btnBuscar" value="Buscar" class="btnBuscarHabilitado"></input>
         
-                    <input type="button" value="Comenzar" id="comenzar" disabled>
+                    <input type="button" value="Comenzar" id="comenzar" class="btnComenzarDesabilitado" disabled>
         
                     <input type="button" value="Reiniciar" id="reiniciar" class="oculto">
     
@@ -36,11 +36,11 @@
         </div>
         <div id="tiempo"></div>
         <main>
-            <section id="respuestas" class="respuestas">
+            <section id="respuestas" class="respuestasIMG">
     
             </section>
-            <form id="preguntas" action="#" method="GET">
-                <input type="button" value="Finalizar" class="oculto" id="finalizar" disabled>
+            <form id="preguntas" action="#" method="GET" class="oculto">
+                <input type="button" value="Finalizar" class="oculto btnFinalizarDesabilitado" id="finalizar" disabled>
     
             </form>
         </main>    
