@@ -13,13 +13,13 @@ body{
     margin-bottom: 80px;
 }
 
-#container{
+main{
     width: 70%;
     margin: 0 auto;
     background-color: #ffffff;
 }
 
-h1{
+h1, h2{
     font-family: 'Anton', sans-serif;
 }
 
@@ -92,7 +92,7 @@ header{
 }
 
 header h1{
-    font-size: 60px;
+    font-size: 80px;
     text-align: center;
 }
 header p{
@@ -133,21 +133,21 @@ header p{
     background-color: #eeeeee;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
-.respuestasResultados h1{
-    font-size: 80px;
+.respuestasResultados h2{
+    font-size: 60px;
     text-decoration: underline;
 
 }
 
-.respuestasResultados h2{
-    font-size: 40px;
+.respuestasResultados h3{
+    font-size: 50px;
     font-family: 'Oxygen', sans-serif;
     margin-bottom: 20px;
     margin-top: 20px;
 }
 
-.respuestasResultados h3{
-    font-size: 30px;
+.respuestasResultados h4{
+    font-size: 25px;
     font-family: 'Oxygen', sans-serif;
     margin-bottom: 80px;
 }

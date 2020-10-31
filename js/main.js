@@ -28,7 +28,7 @@ function limpiarMain() {
     respuestas.classList.add("respuestasIMG");
 }
 function obtenerDatos(){
-    let page = 0;
+    let page = 1;
     limpiarMain();
     let titulo = document.querySelector("#buscar").value;
 
@@ -46,11 +46,10 @@ function obtenerDatos(){
     }else{
         alert("Ingresa una pelicula valida!!!!");
     }
-    page = 0;
+    page = 1;
 }
 
 function mostrarDatos(resultado){
-
 
     for(let i=0 ; i<resultado.Search.length; i++){
 
@@ -491,7 +490,7 @@ function mostrarResultados(resp, porcen){
     respuestas.classList.add("respuestasResultados");
 
     let mostrar = `
-    <h3>${porcen}% preguntas respondidas correctamente</h3>
+    <h4>${porcen}% preguntas respondidas correctamente</h4>
     <div id="preg">
         <p>¿En que año se estrenó?</p><em>${infoPeli.Year}</em>
         <p>¿Cómo se llama el director de la película?</p><em>${infoPeli.Director}</em>
@@ -500,10 +499,10 @@ function mostrarResultados(resp, porcen){
         <p>¿Cómo se llaman los actores principales?</p><em>${infoPeli.Actors}</em>
     </div>
     `
-    let nuevo_intento = `<h1>Resultados</h1><h2>Vuelve a intentarlo</h2>`;
-    let bien = `<h1>Resultados</h1><h2>Bien!</h2>`;
-    let muyBien = `<h1>Resultados</h1><h2>Muy Bien!!</h2>`;
-    let excelente = `<h1>Resultados</h1><h2>Excelente!!</h2>`;
+    let nuevo_intento = `<h2>Resultado:</h2><h3>Vuelve a intentarlo</h3>`;
+    let bien = `<h2>Resultado:</h2><h3>Bien!</h3>`;
+    let muyBien = `<h2>Resultado:</h2><h3>Muy Bien!!</h3>`;
+    let excelente = `<h2>Resultado:</h2><h3>Excelente!!</h3>`;
 
     if(porcen > 80){
         respuestas.innerHTML = excelente + mostrar;

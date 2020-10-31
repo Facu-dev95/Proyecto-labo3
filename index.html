@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Labo3</title>
+    <title>PeliTests</title>
+    <link rel="shortcut icon" href="./img/claqueta.jpg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oxygen&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
@@ -13,47 +14,47 @@
         <h1>PeliTests</h1>
         <p>Pon a prueba tus conocimientos sobre tus peliculas favoritas</p>
     </header>
-    <div id="container">
 
+    <main>
         <div id="buscar-prin">
             <div id="image">
                 <img src="./img/claqueta.jpg" alt="Claqueta">
             </div>
-    
+
             <div id="caja-busq">
                 <div id="caja-busq-contenido">
                     <p><em>*Se recomienda escribir el nombre de la pelicula completa en ingles*</em></p>
                     <label for="buscar">Buscar: </label>
                     <input type="text" name="buscar" id="buscar" placeholder="Ingrese su pelicula">
-                    <input type="button" id="btnBuscar" value="Buscar" class="btnBuscarHabilitado"></input>
+                    <input type="button" id="btnBuscar" value="Buscar" class="btnBuscarHabilitado">
         
                     <input type="button" value="Comenzar" id="comenzar" class="btnComenzarDesabilitado" disabled>
         
                     <input type="button" value="Reiniciar" id="reiniciar" class="oculto">
-    
+
                 </div>
             </div>
         </div>
         <div id="tiempo"></div>
-        <main>
-            <section id="respuestas" class="respuestasIMG">
     
-            </section>
-            <form id="preguntas" action="#" method="GET" class="oculto">
-                <input type="button" value="Finalizar" class="oculto btnFinalizarDesabilitado" id="finalizar" disabled>
-    
-            </form>
-        </main>    
-    </div>
+        <div id="respuestas" class="respuestasIMG">
+            
+        </div>
+        <form id="preguntas" action="#" method="GET" class="oculto">
+            <input type="button" value="Finalizar" class="oculto btnFinalizarDesabilitado" id="finalizar" disabled>
+
+        </form>
+    </main>    
+
 
     <footer>
         <p>Desarrollado por Facundo Benitez &copy;</p>
         <ul>
-            <li><a href="https://www.linkedin.com/in/facundo-j-benitez" target="_blank"><img src="./img/linkedin-logo.png" alt="linkedin-logo"></a></li>
+            <li><a href="https://www.linkedin.com/in/facundo-j-benitez" target="_blank"><img src="./img/linkedin-logo.png" alt="linkedin logo"></a></li>
 
-            <li><a href="mailto:facu.j.benitez@gmail.com" target="_blank"><img src="./img/gmail-logo.png" alt="gmail-logo"></a></li>
+            <li><a href="mailto:facu.j.benitez@gmail.com" target="_blank"><img src="./img/gmail-logo.png" alt="gmail logo"></a></li>
 
-            <li><a href="https://github.com/Facu-dev95" target="_blank"><img src="./img/github-logo.png" alt="github-logo"></a></li>
+            <li><a href="https://github.com/Facu-dev95" target="_blank"><img src="./img/github-logo.png" alt="github logo"></a></li>
         </ul>
     </footer>
 
