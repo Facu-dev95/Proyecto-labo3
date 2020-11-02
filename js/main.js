@@ -28,25 +28,23 @@ function limpiarMain() {
     respuestas.classList.add("respuestasIMG");
 }
 function obtenerDatos(){
-    let page = 1;
+
     limpiarMain();
     let titulo = document.querySelector("#buscar").value;
 
     if(titulo != ""){
-        while(page < 2){
-            let url = `http://www.omdbapi.com/?s=${titulo}&page=${page}&type=movie&apikey=cb4fb574`;
+        
+        let url = `http://www.omdbapi.com/?s=${titulo}&page=1&type=movie&apikey=cb4fb574`;
 
-            fetch(url)
-            .then(respuesta => respuesta.json())
-            .then(resultado => mostrarDatos(resultado))
-            .catch(error => console.log(error))
-            page++;
-        }
+        fetch(url)
+        .then(respuesta => respuesta.json())
+        .then(resultado => mostrarDatos(resultado))
+        .catch(error => console.log(error))
 
     }else{
         alert("Ingresa una pelicula valida!!!!");
     }
-    page = 1;
+
 }
 
 function mostrarDatos(resultado){
@@ -92,43 +90,10 @@ function obtenerInfoPeli(id){
     .then(respuesta => respuesta.json())
     .then(resultado => {
 
-        infoPeli = resultado;
-        /* Generar form_preguntas */ 
+        infoPeli = resultado; //Guardo en los resultados en una variable global
+
     })
     .catch(error => console.log(error))
-}
-
-function tiempo(){
-    let seg = 0; 
-    let min = 2; 
-
-    let temp = setInterval(() => {
-
-        if(seg == 0){
-            min--;
-            seg = 60;
-        }
-
-        seg--;
-
-
-        if(min == 0 && seg == 0){
-            clearInterval(temp);
-            console.log("Se terminó el tiempo!!")
-            recogerDatos();
-            limpiarPreguntas();
-            limpiarTiempo();
-            /* Limpiar form */
-        }else if(validarIngresos() == true){
-            habilitarBtnFinalizar();
-            document.getElementById("finalizar").addEventListener("click", ()=>recogerDatos(temp));
-
-        }
-    
-        mostrarTiempo(min , seg);
-
-    }, 1000);
-
 }
 
 function mostrarTiempo(min , seg){
@@ -144,6 +109,37 @@ function remarcarPeliSelec(id){
 
     habilitarBtnComenzar();
 }
+
+function tiempo(){
+    let seg = 0; 
+    let min = 2; 
+
+    let temp = setInterval(() => {
+
+        if(seg == 0){
+            min--;
+            seg = 60;
+        }
+
+        seg--;
+
+        if(min == 0 && seg == 0){
+            clearInterval(temp);
+            recogerDatos();
+            limpiarPreguntas();
+            limpiarTiempo();
+
+        }else if(validarIngresos() == true){
+            habilitarBtnFinalizar();
+            document.getElementById("finalizar").addEventListener("click", ()=>recogerDatos(temp));
+        }
+    
+        mostrarTiempo(min , seg);
+
+    }, 1000);
+
+}
+
 function inhabilitarInputBtn(){
 
     btnComenzar.disabled = true;
@@ -441,7 +437,7 @@ function comprobarRespuestas(año, duracion, actores, publicacion, director){
     }
     /* convierto la fecha en string */
     let fecha_user = JSON.stringify(new Date(publicacion));
-    /* le saco las comillas y lo divido en 2 elementos en forma de array */
+    /* le saco las comillas y lo divido en 2 elementos de array */
     array_publicacion_user = fecha_user.replace(/["|"]/g,"").split("T");
 
     let fecha_correcta = JSON.stringify(new Date(infoPeli.Released));
