@@ -1,0 +1,1 @@
+En la consola del navegador se encuntra las respuestas de la película elegida para testear el formulario.
